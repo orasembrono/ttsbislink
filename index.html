@@ -15,7 +15,7 @@
         const level = urlParams.get('level');
 
         // Skema khusus Android untuk memaksa buka aplikasi atau ke Play Store
-        const intentUrl = `intent://orasembrono.github.io/ttsbislink/index.html?seed=${seed}&level=${level}#Intent;scheme=https;package=${packageName};S.browser_fallback_url=https://play.google.com/store/apps/details?id=${packageName};end`;
+        const intentUrl = "intent://orasembrono.github.io/ttsbislink/index.html?seed=${seed}&level=${level}#Intent;scheme=https;package=${packageName};S.browser_fallback_url=https://play.google.com/store/apps/details?id=${packageName};end";
         // Eksekusi
         window.location.href = intentUrl;
     </script>
