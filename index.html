@@ -1,23 +1,43 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buka TTS Bisa</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; }
+        .btn { display: inline-block; padding: 10px 20px; background: #1565C0; color: white; text-decoration: none; border-radius: 5px; margin-top: 20px; }
+    </style>
 </head>
 <body>
-    <h2>Membuka tantangan...</h2>
-    <p>Jika aplikasi tidak terbuka otomatis, <a href="https://play.google.com/store/apps/details?id=com.jvan.ivanariwibawa.tts">klik di sini untuk download</a>.</p>
+    <h2>Membuka tantangan TTS Bisa...</h2>
+    <p>Mohon tunggu sebentar.</p>
+    
+    <p>Jika aplikasi tidak terbuka otomatis, <br>
+       <a id="fallback-link" class="btn" href="https://play.google.com/store/apps/details?id=com.jvan.ivanariwibawa.tts">Klik di sini untuk Download / Buka</a>
+    </p>
 
     <script>
-        // Ambil parameter dari URL (seed & level)
+        // 1. Definisikan variabel
+        const packageName = "com.jvan.ivanariwibawa.tts";
+        
+        // 2. Ambil parameter dari URL
         const urlParams = new URLSearchParams(window.location.search);
-        const seed = urlParams.get('seed');
-        const level = urlParams.get('level');
+        const seed = urlParams.get('seed') || "0";
+        const level = urlParams.get('level') || "1";
 
-        // Skema khusus Android untuk memaksa buka aplikasi atau ke Play Store
-        const intentUrl = "intent://orasembrono.github.io/ttsbislink/index.html?seed=${seed}&level=${level}#Intent;scheme=https;package=${packageName};S.browser_fallback_url=https://play.google.com/store/apps/details?id=${packageName};end";
-        // Eksekusi
-        window.location.href = intentUrl;
+        // 3. Susun Intent URL (Gunakan backtick ` agar variabel ${} berfungsi)
+        // Link ini akan mencoba membuka aplikasi, jika tidak ada akan ke Play Store
+        const intentUrl = `intent://orasembrono.github.io/index.html?seed=${seed}&level=${level}#Intent;scheme=https;package=${packageName};S.browser_fallback_url=https://play.google.com/store/apps/details?id=${packageName};end`;
+
+        // 4. Update link pada tombol manual agar sesuai
+        document.getElementById('fallback-link').href = intentUrl;
+
+        // 5. Jalankan pengalihan otomatis dengan sedikit delay
+        // Delay 500ms memberikan waktu bagi sistem Android untuk memproses App Link terlebih dahulu
+        setTimeout(function() {
+            window.location.href = intentUrl;
+        }, 500);
     </script>
 </body>
 </html>
